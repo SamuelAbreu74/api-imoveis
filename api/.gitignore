@@ -1,0 +1,12 @@
+# Pasta de dependências
+node_modules/
+
+# Variáveis de ambiente (segurança)
+.env
+
+# Arquivos de log
+*.log
+
+# Pastas de IDE
+.idea/
+.vscode/
