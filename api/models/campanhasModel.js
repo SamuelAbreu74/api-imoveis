@@ -5,6 +5,7 @@ const Campanha = sequelize.define('campanhas', {
     id: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        autoIncrement: true,
         primaryKey: true
     },
     id_tipo_campanha: {
