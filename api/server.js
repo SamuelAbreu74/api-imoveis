@@ -1,14 +1,21 @@
 const express = require('express');
-const campanhasRoutes = require('./routes/campanhasRoutes')
-const imoveisRoutes = require('./routes/imoveisRoutes')
+const campanhasPrivateRoutes = require('./routes/privateRoutes/campanhasRoutes')
+const imoveisPrivateRoutes = require('./routes/privateRoutes/imoveisRoutes')
+const campanhasPublicRoutes = require('./routes/publicRoutes/campanhasRoutes')
+const imoveisPublicRoutes = require('./routes/publicRoutes/imoveisRoutes')
 const app = express();
 const PORT = 3000;
 
 
 app.use(express.json());
 
-app.use('/api', campanhasRoutes);
-app.use('/api', imoveisRoutes);
+// Rotas Privadas
+app.use('/api', campanhasPrivateRoutes);
+app.use('/api', imoveisPrivateRoutes);
+
+// Rotas Publicas
+app.use('/api', campanhasPublicRoutes);
+app.use('/api', imoveisPublicRoutes)
 
 app.get('/', (req, res) => {
     res.send('API Funcionando!');
