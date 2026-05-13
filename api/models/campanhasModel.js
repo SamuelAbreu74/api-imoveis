@@ -12,28 +12,28 @@ const Campanha = sequelize.define('campanhas', {
         type: DataTypes.INTEGER
     },
     nome_campanha: {
-        type: DataTypes.CHAR
+        type: DataTypes.STRING
     },
     quantidade_unidades: {
         type: DataTypes.INTEGER
     },
     logradouro: {
-        type: DataTypes.CHAR
+        type: DataTypes.STRING
     },
     numero: {
-        type: DataTypes.CHAR
+        type: DataTypes.STRING
     },
     bairro: {
-        type: DataTypes.CHAR
+        type: DataTypes.STRING
     },
     cidade: {
-        type: DataTypes.CHAR
+        type: DataTypes.STRING
     },
     uf: {
-        type: DataTypes.CHAR
+        type: DataTypes.STRING
     },
     cep: {
-        type: DataTypes.CHAR
+        type: DataTypes.STRING
     },
     created_at: {
         type: DataTypes.DATE

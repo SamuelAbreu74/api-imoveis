@@ -10,51 +10,44 @@ const Usuario = sequelize.define('usuarios', {
         primaryKey: true
     },
     nome: {
-        type: DataTypes.CHAR,
+        type: DataTypes.STRING, 
         allowNull: false
     },
     email: {
-        type: DataTypes.CHAR,
-        allowNull: false
+        type: DataTypes.STRING, 
+        allowNull: false,
+        unique: true 
     },
     senha: {
-        type: DataTypes.CHAR,
+        type: DataTypes.STRING, 
         allowNull: false
     },
     tipo: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        defaultValue: 1 
     },
     ultimo_login: {
         type: DataTypes.DATE
-    },
-    updated_at: {
-        type: DataTypes.DATE
-    },
-    created_at: {
-        type: DataTypes.DATE
-    },
-},
-    {
-        tableName: 'usuarios',
-        timestamps: false,
-        hooks: {
-            // Aciona antes de Criar um novo registro
-            beforeCreate: async (usuario) => {
-                if(usuario.senha){
-                    const salt = await bcrypt.genSalt(10);
-                    usuario.senha = await bcrypt.hash(usuario.senha, salt);
-                }
-            },
-            // Aciona antes de Atualizar algum registro
-            beforeUpdate: async (usuario) => {
-                if(usuario.changed('senha')) {
-                    const salt = await bcrypt.genSalt(10);
-                    usuario.senha = await bcrypt.hash(usuario.senha, salt);
-                }
+    }
+}, {
+    tableName: 'usuarios',
+    timestamps: true, 
+    underscored: true, 
+    hooks: {
+        beforeCreate: async (usuario) => {
+            if (usuario.senha) {
+                const salt = await bcrypt.genSalt(10);
+                usuario.senha = await bcrypt.hash(usuario.senha, salt);
+            }
+        },
+        beforeUpdate: async (usuario) => {
+            if (usuario.changed('senha')) {
+                const salt = await bcrypt.genSalt(10);
+                usuario.senha = await bcrypt.hash(usuario.senha, salt);
             }
         }
     }
-);
+});
 
 module.exports = Usuario;
