@@ -1,4 +1,6 @@
-const Usuario = require('../models/usuariosModel')
+const { where } = require('sequelize');
+const Usuario = require('../models/usuariosModel');
+
 
 module.exports = {
 
@@ -36,10 +38,49 @@ module.exports = {
         } catch (error) {
             return res.status(500).json({ message: "Erro:", error })
         }
-    }
+    },
 
 
     // PUT
-    // DELETE
+    async editarUsuario(req, res){
+        try {
+            const { id } = req.params
+            const novosDados = req.body
 
+            const usuario = await Usuario.findByPk(id);
+            if(!usuario){
+                return res.status(404).json({message: "Usuario não Encontrado"})
+            }
+
+            const usuarioEditado = await usuario.update(novosDados)
+
+            return res.status(200).json({message: "Usuario editado com sucesso!", usuarioEditado});
+
+        } catch (error) {
+            return res.status(500).json({ message: "Erro:", error })
+        }
+    },
+
+    // DELETE
+    async deletarUsuario(req, res){
+        try {
+            const { id } = req.params
+            
+            const usuario = await Usuario.findByPk(id);
+            if(!usuario){
+                return res.status(404).json({message: "Usuario não Encontrado"})
+            }
+
+            const usuarioDeletado = await Usuario.destroy({
+                where: {
+                    id: id
+                }
+            })
+
+            return res.status(200).json({message: "Usuario deletado com sucesso!"})
+
+        } catch (error) {
+            return res.status(500).json({ message: "Erro:", error })
+        }
+    }
 }
