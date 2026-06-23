@@ -1,0 +1,1344 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "API-Imoveis",
+    "description": "# 🚀 Get started here\n\nThis template guides you through CRUD operations (GET, POST, PUT, DELETE), variables, and tests.\n\n## 🔖 **How to use this template**\n\n#### **Step 1: Send requests**\n\nRESTful APIs allow you to perform CRUD operations using the POST, GET, PUT, and DELETE HTTP methods.\n\nThis collection contains each of these [request](https://learning.postman.com/docs/sending-requests/requests/) types. Open each request and click \"Send\" to see what happens.\n\n#### **Step 2: View responses**\n\nObserve the response tab for status code (200 OK), response time, and size.\n\n#### **Step 3: Send new Body data**\n\nUpdate or add new data in \"Body\" in the POST request. Typically, Body data is also used in PUT request.\n\n```\n{\n    \"name\": \"Add your name in the body\"\n}\n\n ```\n\n#### **Step 4: Update the variable**\n\nVariables enable you to store and reuse values in Postman. We have created a [variable](https://learning.postman.com/docs/sending-requests/variables/) called `base_url` with the sample request [https://postman-api-learner.glitch.me](https://postman-api-learner.glitch.me). Replace it with your API endpoint to customize this collection.\n\n#### **Step 5: Add tests in the \"Scripts\" tab**\n\nAdding tests to your requests can help you confirm that your API is working as expected. You can write test scripts in JavaScript and view the output in the \"Test Results\" tab.\n\n<img src=\"https://content.pstmn.io/fa30ea0a-373d-4545-a668-e7b283cca343/aW1hZ2UucG5n\" alt=\"\" height=\"1530\" width=\"2162\">\n\n## 💪 Pro tips\n\n- Use folders to group related requests and organize the collection.\n    \n- Add more [scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) to verify if the API works as expected and execute workflows.\n    \n\n## 💡Related templates\n\n[API testing basics](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9a37a28-055b-49cd-8c7e-97494a21eb54&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[API documentation](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9c28f47-1253-44af-a2f3-20dce4da1f18&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[Authorization methods](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=31a9a6ed-4cdf-4ced-984c-d12c9aec1c27&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "Campanhas"
+    },
+    {
+      "name": "Imoveis"
+    },
+    {
+      "name": "Usuarios"
+    }
+  ],
+  "paths": {
+    "/campanhas": {
+      "get": {
+        "summary": "Listar Campanhas",
+        "deprecated": false,
+        "description": "Rota para listar todas as campanhas existentes.",
+        "tags": [
+          "Campanhas"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "id_tipo_campanha": {
+                      "type": "integer"
+                    },
+                    "nome_campanha": {
+                      "type": "string"
+                    },
+                    "quantidade_unidades": {
+                      "type": "integer"
+                    },
+                    "logradouro": {
+                      "type": "string"
+                    },
+                    "numero": {
+                      "type": "string"
+                    },
+                    "bairro": {
+                      "type": "string"
+                    },
+                    "cidade": {
+                      "type": "string"
+                    },
+                    "uf": {
+                      "type": "string"
+                    },
+                    "cep": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "usuarios": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "nome": {
+                            "type": "string"
+                          },
+                          "email": {
+                            "type": "string"
+                          },
+                          "senha": {
+                            "type": "string"
+                          },
+                          "tipo": {
+                            "type": "integer"
+                          },
+                          "ultimo_login": {
+                            "type": "null"
+                          },
+                          "createdAt": {
+                            "type": "string"
+                          },
+                          "updatedAt": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "id_tipo_campanha",
+                    "nome_campanha",
+                    "quantidade_unidades",
+                    "logradouro",
+                    "numero",
+                    "bairro",
+                    "cidade",
+                    "uf",
+                    "cep",
+                    "created_at",
+                    "message",
+                    "usuarios"
+                  ]
+                },
+                "example": {
+                  "id": 1,
+                  "id_tipo_campanha": 1,
+                  "nome_campanha": "Premiato Condominio Clube - Eusébio",
+                  "quantidade_unidades": 69,
+                  "logradouro": "Rua Olho d'Água",
+                  "numero": "1900",
+                  "bairro": "Olho D'água",
+                  "cidade": "Eusébio",
+                  "uf": "CE",
+                  "cep": "61776220",
+                  "created_at": "2026-05-08T22:01:55.328Z"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      },
+      "post": {
+        "summary": "Criar Campanha",
+        "deprecated": false,
+        "description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code.",
+        "tags": [
+          "Campanhas"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id_tipo_campanha": {
+                    "type": "integer"
+                  },
+                  "nome_campanha": {
+                    "type": "string"
+                  },
+                  "quantidade_unidades": {
+                    "type": "integer"
+                  },
+                  "logradouro": {
+                    "type": "string"
+                  },
+                  "numero": {
+                    "type": "string"
+                  },
+                  "bairro": {
+                    "type": "string"
+                  },
+                  "cidade": {
+                    "type": "string"
+                  },
+                  "uf": {
+                    "type": "string"
+                  },
+                  "cep": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id_tipo_campanha",
+                  "nome_campanha",
+                  "quantidade_unidades",
+                  "logradouro",
+                  "numero",
+                  "bairro",
+                  "cidade",
+                  "uf",
+                  "cep"
+                ]
+              },
+              "example": {
+                "id_tipo_campanha": 1,
+                "nome_campanha": "teste",
+                "quantidade_unidades": 74,
+                "logradouro": "Rua teste",
+                "numero": "1900",
+                "bairro": "Bairro Teste",
+                "cidade": "Cidade Teste",
+                "uf": "CE",
+                "cep": "61700000"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id_tipo_campanha": {
+                      "type": "integer"
+                    },
+                    "nome_campanha": {
+                      "type": "string"
+                    },
+                    "quantidade_unidades": {
+                      "type": "integer"
+                    },
+                    "logradouro": {
+                      "type": "string"
+                    },
+                    "numero": {
+                      "type": "string"
+                    },
+                    "bairro": {
+                      "type": "string"
+                    },
+                    "cidade": {
+                      "type": "string"
+                    },
+                    "uf": {
+                      "type": "string"
+                    },
+                    "cep": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "integer"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "usuarioCriado": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "tipo": {
+                          "type": "integer"
+                        },
+                        "nome": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "senha": {
+                          "type": "string"
+                        },
+                        "updatedAt": {
+                          "type": "string"
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        },
+                        "ultimo_login": {
+                          "type": "null"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "tipo",
+                        "nome",
+                        "email",
+                        "senha",
+                        "updatedAt",
+                        "createdAt",
+                        "ultimo_login"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "id_tipo_campanha",
+                    "nome_campanha",
+                    "quantidade_unidades",
+                    "logradouro",
+                    "numero",
+                    "bairro",
+                    "cidade",
+                    "uf",
+                    "cep",
+                    "id",
+                    "created_at",
+                    "message",
+                    "usuarioCriado"
+                  ]
+                },
+                "example": {
+                  "id": 1,
+                  "id_tipo_campanha": 1,
+                  "nome_campanha": "Premiato Condominio Clube - Eusébio",
+                  "quantidade_unidades": 69,
+                  "logradouro": "Rua Olho d'Água",
+                  "numero": "1900",
+                  "bairro": "Olho D'água",
+                  "cidade": "Eusébio",
+                  "uf": "CE",
+                  "cep": "61776220",
+                  "created_at": "2026-05-08T22:01:55.328Z"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/campanhas/5": {
+      "put": {
+        "summary": "Editar Campanha",
+        "deprecated": false,
+        "description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code.",
+        "tags": [
+          "Campanhas"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome_campanha": {
+                    "type": "string"
+                  },
+                  "quantidade_unidades": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "nome_campanha",
+                  "quantidade_unidades"
+                ]
+              },
+              "example": {
+                "nome_campanha": "Nome Teste Atualizado",
+                "quantidade_unidades": 174
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "nome_campanha": {
+                      "type": "string"
+                    },
+                    "quantidade_unidades": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "nome_campanha",
+                    "quantidade_unidades"
+                  ]
+                },
+                "example": {
+                  "nome_campanha": "Nome Teste Atualizado",
+                  "quantidade_unidades": 174
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/campanhas/7": {
+      "delete": {
+        "summary": "Deletar Campanha",
+        "deprecated": false,
+        "description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code.",
+        "tags": [
+          "Campanhas"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": 1,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "id"
+                  ]
+                },
+                "example": {
+                  "message": "Campanha Deletada com Sucesso!",
+                  "id": "1"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/imoveis": {
+      "get": {
+        "summary": "Listar Imóveis",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Imoveis"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "id_campanha": {
+                        "type": "integer"
+                      },
+                      "id_tipo_imovel": {
+                        "type": "integer"
+                      },
+                      "tamanho_total_m2": {
+                        "type": "string"
+                      },
+                      "area_construida_m2": {
+                        "type": "string"
+                      },
+                      "comodos": {
+                        "type": "object",
+                        "properties": {
+                          "piscina": {
+                            "type": "integer"
+                          },
+                          "quartos": {
+                            "type": "integer"
+                          },
+                          "banheiros": {
+                            "type": "integer"
+                          },
+                          "vagas_garagem": {
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "piscina",
+                          "quartos",
+                          "banheiros",
+                          "vagas_garagem"
+                        ]
+                      },
+                      "descricao": {
+                        "type": "string"
+                      },
+                      "valor_venda": {
+                        "type": "string"
+                      },
+                      "valor_avaliacao_caixa": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "integer"
+                      },
+                      "created_at": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "example": "\"message\": \"Imóveis Encontrados com Sucesso! \",\n    \"imoveis\": [\n        {\n            \"id\": 4,\n            \"id_campanha\": 8,\n            \"id_tipo_imovel\": 1,\n            \"tamanho_total_m2\": \"24.00\",\n            \"area_construida_m2\": \"20.00\",\n            \"comodos\": {\n                \"piscina\": 1,\n                \"quartos\": 2,\n                \"banheiros\": 3,\n                \"vagas_garagem\": 2\n            },\n            \"descricao\": \"Descriçao exemplo para teste\",\n            \"valor_venda\": \"7400000.00\",\n            \"valor_avaliacao_caixa\": \"800000.00\",\n            \"status\": 1,\n            \"created_at\": \"2026-05-12T23:49:19.295Z\"\n        }\n    ]\n}"
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      },
+      "post": {
+        "summary": "Criar Imóvel",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Imoveis"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id_campanha": {
+                    "type": "integer"
+                  },
+                  "id_tipo_imovel": {
+                    "type": "integer"
+                  },
+                  "tamanho_total_m2": {
+                    "type": "integer"
+                  },
+                  "area_construida_m2": {
+                    "type": "integer"
+                  },
+                  "comodos": {
+                    "type": "object",
+                    "properties": {
+                      "quartos": {
+                        "type": "integer"
+                      },
+                      "banheiros": {
+                        "type": "integer"
+                      },
+                      "piscina": {
+                        "type": "integer"
+                      },
+                      "vagas_garagem": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "quartos",
+                      "banheiros",
+                      "piscina",
+                      "vagas_garagem"
+                    ]
+                  },
+                  "descricao": {
+                    "type": "string"
+                  },
+                  "valor_venda": {
+                    "type": "integer"
+                  },
+                  "valor_avaliacao_caixa": {
+                    "type": "integer"
+                  },
+                  "status": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "id_campanha",
+                  "id_tipo_imovel",
+                  "tamanho_total_m2",
+                  "area_construida_m2",
+                  "comodos",
+                  "descricao",
+                  "valor_venda",
+                  "valor_avaliacao_caixa",
+                  "status"
+                ]
+              },
+              "example": {
+                "id_campanha": 8,
+                "id_tipo_imovel": 1,
+                "tamanho_total_m2": 24,
+                "area_construida_m2": 20,
+                "comodos": {
+                  "quartos": 2,
+                  "banheiros": 3,
+                  "piscina": 1,
+                  "vagas_garagem": 2
+                },
+                "descricao": "Descriçao exemplo para teste",
+                "valor_venda": 7400000,
+                "valor_avaliacao_caixa": 800000,
+                "status": 1
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "novoImovel": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "id_campanha": {
+                          "type": "integer"
+                        },
+                        "id_tipo_imovel": {
+                          "type": "integer"
+                        },
+                        "tamanho_total_m2": {
+                          "type": "string"
+                        },
+                        "area_construida_m2": {
+                          "type": "string"
+                        },
+                        "comodos": {
+                          "type": "object",
+                          "properties": {
+                            "piscina": {
+                              "type": "integer"
+                            },
+                            "quartos": {
+                              "type": "integer"
+                            },
+                            "banheiros": {
+                              "type": "integer"
+                            },
+                            "vagas_garagem": {
+                              "type": "integer"
+                            }
+                          },
+                          "required": [
+                            "piscina",
+                            "quartos",
+                            "banheiros",
+                            "vagas_garagem"
+                          ]
+                        },
+                        "descricao": {
+                          "type": "string"
+                        },
+                        "valor_venda": {
+                          "type": "string"
+                        },
+                        "valor_avaliacao_caixa": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "integer"
+                        },
+                        "created_at": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "id_campanha",
+                        "id_tipo_imovel",
+                        "tamanho_total_m2",
+                        "area_construida_m2",
+                        "comodos",
+                        "descricao",
+                        "valor_venda",
+                        "valor_avaliacao_caixa",
+                        "status",
+                        "created_at"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "novoImovel"
+                  ]
+                },
+                "example": {
+                  "message": "Imóvel Criado com Sucesso!",
+                  "novoImovel": {
+                    "id": 5,
+                    "id_campanha": 8,
+                    "id_tipo_imovel": 1,
+                    "tamanho_total_m2": "24.00",
+                    "area_construida_m2": "20.00",
+                    "comodos": {
+                      "piscina": 1,
+                      "quartos": 2,
+                      "banheiros": 3,
+                      "vagas_garagem": 2
+                    },
+                    "descricao": "Descriçao exemplo para teste",
+                    "valor_venda": "7400000.00",
+                    "valor_avaliacao_caixa": "800000.00",
+                    "status": 1,
+                    "created_at": "2026-06-23T20:15:26.541Z"
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/imoveis/2": {
+      "put": {
+        "summary": "Editar Imóvel",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Imoveis"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": 4,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "descricao": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "descricao"
+                ]
+              },
+              "example": {
+                "descricao": "Editando descriçao exemplo para teste"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "imovelEditado": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "id_campanha": {
+                          "type": "integer"
+                        },
+                        "id_tipo_imovel": {
+                          "type": "integer"
+                        },
+                        "tamanho_total_m2": {
+                          "type": "string"
+                        },
+                        "area_construida_m2": {
+                          "type": "string"
+                        },
+                        "comodos": {
+                          "type": "object",
+                          "properties": {
+                            "piscina": {
+                              "type": "integer"
+                            },
+                            "quartos": {
+                              "type": "integer"
+                            },
+                            "banheiros": {
+                              "type": "integer"
+                            },
+                            "vagas_garagem": {
+                              "type": "integer"
+                            }
+                          },
+                          "required": [
+                            "piscina",
+                            "quartos",
+                            "banheiros",
+                            "vagas_garagem"
+                          ]
+                        },
+                        "descricao": {
+                          "type": "string"
+                        },
+                        "valor_venda": {
+                          "type": "string"
+                        },
+                        "valor_avaliacao_caixa": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "integer"
+                        },
+                        "created_at": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "id_campanha",
+                        "id_tipo_imovel",
+                        "tamanho_total_m2",
+                        "area_construida_m2",
+                        "comodos",
+                        "descricao",
+                        "valor_venda",
+                        "valor_avaliacao_caixa",
+                        "status",
+                        "created_at"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "imovelEditado"
+                  ]
+                },
+                "example": {
+                  "message": "Imóvel Editado com Sucesso!",
+                  "imovelEditado": {
+                    "id": 4,
+                    "id_campanha": 8,
+                    "id_tipo_imovel": 1,
+                    "tamanho_total_m2": "24.00",
+                    "area_construida_m2": "20.00",
+                    "comodos": {
+                      "piscina": 1,
+                      "quartos": 2,
+                      "banheiros": 3,
+                      "vagas_garagem": 2
+                    },
+                    "descricao": "Editando descriçao exemplo para teste",
+                    "valor_venda": "7400000.00",
+                    "valor_avaliacao_caixa": "800000.00",
+                    "status": 1,
+                    "created_at": "2026-05-12T23:49:19.295Z"
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/imoveis/4": {
+      "delete": {
+        "summary": "Deletar Imóvel",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Imoveis"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": 4,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "id"
+                  ]
+                },
+                "example": {
+                  "message": "Imovel Deletado com Sucesso!",
+                  "id": "4"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/usuarios": {
+      "get": {
+        "summary": "Listar Usuarios",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Usuarios"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "usuarios": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "nome": {
+                            "type": "string"
+                          },
+                          "email": {
+                            "type": "string"
+                          },
+                          "senha": {
+                            "type": "string"
+                          },
+                          "tipo": {
+                            "type": "integer"
+                          },
+                          "ultimo_login": {
+                            "type": "null"
+                          },
+                          "createdAt": {
+                            "type": "string"
+                          },
+                          "updatedAt": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "usuarios"
+                  ]
+                },
+                "example": {
+                  "message": "Usuarios Encontrados com Sucesso!",
+                  "usuarios": [
+                    {
+                      "id": 1,
+                      "nome": "Samuel teste",
+                      "email": "samuelabreudev@gmail.com",
+                      "senha": "$2a$12$GpdF.zSGVsSPZsskIlV4Y.eJjykw7CN266xgDFcMZ3x0.762/S4na",
+                      "tipo": 1,
+                      "ultimo_login": null,
+                      "createdAt": "2026-05-13T20:33:09.078Z",
+                      "updatedAt": "2026-05-13T20:33:09.078Z"
+                    }
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      },
+      "post": {
+        "summary": "Criar Usuario",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Usuarios"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "tipo": {
+                    "type": "integer"
+                  },
+                  "nome": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "senha": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "tipo",
+                  "nome",
+                  "email",
+                  "senha"
+                ]
+              },
+              "example": {
+                "tipo": 2,
+                "nome": "Helena teste",
+                "email": "helenasesostepsi@gmail.com",
+                "senha": "teste123"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "usuarioCriado": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "tipo": {
+                          "type": "integer"
+                        },
+                        "nome": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "senha": {
+                          "type": "string"
+                        },
+                        "updatedAt": {
+                          "type": "string"
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        },
+                        "ultimo_login": {
+                          "type": "null"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "tipo",
+                        "nome",
+                        "email",
+                        "senha",
+                        "updatedAt",
+                        "createdAt",
+                        "ultimo_login"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "usuarioCriado"
+                  ]
+                },
+                "example": {
+                  "message": "Usuario criado com sucesso!",
+                  "usuarioCriado": {
+                    "id": 3,
+                    "tipo": 2,
+                    "nome": "Helena teste",
+                    "email": "helenasesostepsi@gmail.com",
+                    "senha": "$2b$10$VK5MXUKZ3Oy1foTBfIFAL.epKzp4o5eCvjmMlx37iK3IGgj87MCXS",
+                    "updatedAt": "2026-06-23T20:08:20.608Z",
+                    "createdAt": "2026-06-23T20:08:20.608Z",
+                    "ultimo_login": null
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/usuarios/2": {
+      "put": {
+        "summary": "Editar Usuario",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Usuarios"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": 3,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "nome"
+                ]
+              },
+              "example": {
+                "nome": "Helena editando teste"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "usuarioEditado": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "nome": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "senha": {
+                          "type": "string"
+                        },
+                        "tipo": {
+                          "type": "integer"
+                        },
+                        "ultimo_login": {
+                          "type": "null"
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        },
+                        "updatedAt": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "nome",
+                        "email",
+                        "senha",
+                        "tipo",
+                        "ultimo_login",
+                        "createdAt",
+                        "updatedAt"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "usuarioEditado"
+                  ]
+                },
+                "example": {
+                  "message": "Usuario editado com sucesso!",
+                  "usuarioEditado": {
+                    "id": 3,
+                    "nome": "Helena editando teste",
+                    "email": "helenasesostepsi@gmail.com",
+                    "senha": "$2b$10$VK5MXUKZ3Oy1foTBfIFAL.epKzp4o5eCvjmMlx37iK3IGgj87MCXS",
+                    "tipo": 2,
+                    "ultimo_login": null,
+                    "createdAt": "2026-06-23T20:08:20.608Z",
+                    "updatedAt": "2026-06-23T20:19:00.378Z"
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      },
+      "delete": {
+        "summary": "Deletar Usuario",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Usuarios"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": 3,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                },
+                "example": {
+                  "message": "Usuario deletado com sucesso!"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "webhooks": {},
+  "components": {
+    "schemas": {},
+    "responses": {},
+    "securitySchemes": {}
+  },
+  "servers": [],
+  "security": []
+}
