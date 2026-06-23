@@ -1,23 +1,40 @@
 const express = require('express');
+const cors = require('cors')
 const path = require('path');
 const campanhasPrivateRoutes = require('./routes/privateRoutes/campanhasRoutes')
 const imoveisPrivateRoutes = require('./routes/privateRoutes/imoveisRoutes')
 const campanhasPublicRoutes = require('./routes/publicRoutes/campanhasRoutes')
 const imoveisPublicRoutes = require('./routes/publicRoutes/imoveisRoutes')
-const usuariosPublicRoutes = require('./routes/privateRoutes/usuariosRoutes')
+const usuariosPrivateRoutes = require('./routes/privateRoutes/usuariosRoutes')
 const app = express();
-const PORT = 3000;
+const PORT = 5000;
 
 
 app.use(express.json());
 
+const allowedOrigins = ["http://localhost:3000", "http://localhost:3001" ]
+
+const corsOptions = {
+    origin: function (origin, callback){
+
+        if(allowedOrigins.includes(origin) || !origin){
+            callback(null, true)
+        }else{
+            callback(new Error('Não permitido pelo CORS'))
+        }
+        
+    }
+}
+
+app.use(cors(corsOptions))
+
 // Rotas Privadas
 app.use('/api', campanhasPrivateRoutes);
 app.use('/api', imoveisPrivateRoutes);
+app.use('/api', usuariosPrivateRoutes);
 app.use('/doc-rotas', express.static(path.join(__dirname, 'doc-rotas')));
 
 // Rotas Publicas
-app.use('/api', usuariosPublicRoutes);
 app.use('/api', campanhasPublicRoutes);
 app.use('/api', imoveisPublicRoutes);
 
