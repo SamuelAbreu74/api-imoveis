@@ -1,72 +1,108 @@
 const Imovel = require('../models/imoveisModel');
+const { sendSuccess, sendError } = require('../utils/responseHelper');
 
 module.exports = {
 
+    // GET /imoveis
     async listarImoveis(req, res) {
         try {
             const imoveis = await Imovel.findAll();
 
-            if (!imoveis) {
-                return res.status(404).json({ message: "Nenhum Imóvel Encontrado!" })
-            }
+            return sendSuccess(res, {
+                statusCode: 200,
+                message: 'Imóveis carregados com sucesso!',
+                data: imoveis
+            });
 
-            return res.status(200).json({ message: "Imóveis Encontrados com Sucesso! ", imoveis });
         } catch (error) {
-            return res.status(500).json({ message: "Erro: ", error })
+            return sendError(res, {
+                statusCode: 500,
+                message: 'Falha ao buscar a lista de imóveis',
+                error: error
+            });
         }
     },
 
+    // POST /imoveis
     async criarImovel(req, res) {
         try {
             const novoImovel = await Imovel.create(req.body);
-            return res.status(201).json({ message: "Imóvel Criado com Sucesso!", novoImovel })
+
+            return sendSuccess(res, {
+                statusCode: 201,
+                message: 'Imóvel criado com sucesso!',
+                data: novoImovel
+            });
 
         } catch (error) {
-            return res.status(500).json({ message: "Erro: ", error })
+            return sendError(res, {
+                statusCode: 500,
+                message: 'Falha ao criar o imóvel.',
+                error: error
+            });
         }
     },
 
+    // PUT /imoveis/:id
     async editarImovel(req, res) {
         try {
             const { id } = req.params;
-            const novosDados = req.body
-            
+            const novosDados = req.body;
+
             const imovel = await Imovel.findByPk(id);
-            if(!imovel){
-                return res.send(404).json({message: "Imóvel não Encontrado"})
+            if (!imovel) {
+                return sendError(res, {
+                    statusCode: 404,
+                    message: 'Imóvel não encontrado para edição.'
+                });
             }
 
-            const imovelEditado = await imovel.update(novosDados)
+            const imovelEditado = await imovel.update(novosDados);
 
-            return res.status(200).json({message: "Imóvel Editado com Sucesso!", imovelEditado}) 
+            return sendSuccess(res, {
+                statusCode: 200,
+                message: 'Imóvel editado com sucesso!',
+                data: imovelEditado
+            });
 
         } catch (error) {
-            return res.status(500).json({ message: "Erro: ", error })
+            return sendError(res, {
+                statusCode: 500,
+                message: 'Falha ao editar o imóvel.',
+                error: error
+            });
         }
     },
 
-
-    async deletarImovel (req, res) {
+    // DELETE /imoveis/:id
+    async deletarImovel(req, res) {
         try {
-            const { id } = req.params
+            const { id } = req.params;
 
             const imovel = await Imovel.findByPk(id);
-            if(!imovel){
-                return res.status(404).json({message: "Imóvel não Encontrado"})
+            if (!imovel) {
+                return sendError(res, {
+                    statusCode: 404,
+                    message: 'Imóvel não encontrado para exclusão.'
+                });
             }
 
-            const imovelDeletado = await Imovel.destroy({
-                where: {
-                    id: id
-                }
-            }) 
+            await Imovel.destroy({
+                where: { id: id }
+            });
 
-            return res.status(200).json({message: "Imovel Deletado com Sucesso!", id})
+            return sendSuccess(res, {
+                statusCode: 200,
+                message: 'Imóvel deletado com sucesso!',
+                data: { id } 
+            });
 
         } catch (error) {
-            return res.status(500).json({ message: "Erro: ", error })
+            return sendError(res, {
+                statusCode: 500,
+                message: 'Falha ao deletar o imóvel.',
+                error: error
+            });
         }
     }
-
-
-}
+};
