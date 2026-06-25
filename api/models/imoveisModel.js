@@ -39,6 +39,16 @@ const Imovel = sequelize.define('imoveis', {
     created_at: {
         type: DataTypes.DATE
     },
+    nome: {
+        type: DataTypes.CHAR
+    },
+    endereco: {
+        type: DataTypes.TEXT
+    },
+    url_foto: {
+        type: DataTypes.TEXT
+    },
+    
 
 },
     {
