@@ -1,86 +1,117 @@
-const { where } = require('sequelize');
 const Usuario = require('../models/usuariosModel');
-
+const { sendSuccess, sendError } = require('../utils/responseHelper');
 
 module.exports = {
 
-    // GET
+    // GET /usuarios
     async listarUsuarios(req, res) {
         try {
             const usuarios = await Usuario.findAll();
-            if (!usuarios) {
-                return res.status(404).json({ message: "Nenhum Usuario Encontrado!" });
-            }
 
-            return res.status(200).json({ message: "Usuarios Encontrados com Sucesso!", usuarios });
+            return sendSuccess(res, {
+                statusCode: 200,
+                message: 'Usuários carregados com sucesso!',
+                data: usuarios
+            });
 
         } catch (error) {
-            return res.status(500).json({ message: "Erro:", error })
+            return sendError(res, {
+                statusCode: 500,
+                message: 'Falha ao buscar a lista de usuários.',
+                error: error
+            });
         }
     },
 
-    // POST
+    // POST /usuarios
     async criarUsuario(req, res) {
         try {
-            const novoUsuario = req.body
+            const novoUsuario = req.body;
 
-            if (!novoUsuario) {
-                return res.status(400).json({ message: "Dados informados incorretamente!" })
+            if (!novoUsuario || Object.keys(novoUsuario).length === 0) {
+                return sendError(res, {
+                    statusCode: 400,
+                    message: 'Dados não informados ou incorretos!'
+                });
             }
 
             const usuarioCriado = await Usuario.create(novoUsuario);
-            if (!usuarioCriado) {
-                return res.status(400).json({ message: "Erro ao criar novo usuario!" })
-            }
 
-            return res.status(201).json({ message: "Usuario criado com sucesso!", usuarioCriado });
+            return sendSuccess(res, {
+                statusCode: 201,
+                message: 'Usuário criado com sucesso!',
+                data: usuarioCriado
+            });
 
         } catch (error) {
-            return res.status(500).json({ message: "Erro:", error })
+            return sendError(res, {
+                statusCode: 500,
+                message: 'Falha ao criar o novo usuário.',
+                error: error
+            });
         }
     },
 
-
-    // PUT
-    async editarUsuario(req, res){
+    // PUT /usuarios/:id
+    async editarUsuario(req, res) {
         try {
-            const { id } = req.params
-            const novosDados = req.body
+            const { id } = req.params;
+            const novosDados = req.body;
 
             const usuario = await Usuario.findByPk(id);
-            if(!usuario){
-                return res.status(404).json({message: "Usuario não Encontrado"})
+            if (!usuario) {
+                return sendError(res, {
+                    statusCode: 404,
+                    message: 'Usuário não encontrado para edição.'
+                });
             }
 
-            const usuarioEditado = await usuario.update(novosDados)
+            const usuarioEditado = await usuario.update(novosDados);
 
-            return res.status(200).json({message: "Usuario editado com sucesso!", usuarioEditado});
+            return sendSuccess(res, {
+                statusCode: 200,
+                message: 'Usuário editado com sucesso!',
+                data: usuarioEditado
+            });
 
         } catch (error) {
-            return res.status(500).json({ message: "Erro:", error })
+            return sendError(res, {
+                statusCode: 500,
+                message: 'Falha ao editar o usuário.',
+                error: error
+            });
         }
     },
 
-    // DELETE
-    async deletarUsuario(req, res){
+    // DELETE /usuarios/:id
+    async deletarUsuario(req, res) {
         try {
-            const { id } = req.params
-            
+            const { id } = req.params;
+
             const usuario = await Usuario.findByPk(id);
-            if(!usuario){
-                return res.status(404).json({message: "Usuario não Encontrado"})
+            if (!usuario) {
+                return sendError(res, {
+                    statusCode: 404,
+                    message: 'Usuário não encontrado para exclusão.'
+                });
             }
 
-            const usuarioDeletado = await Usuario.destroy({
-                where: {
-                    id: id
-                }
-            })
+            await Usuario.destroy({
+                where: { id: id }
+            });
 
-            return res.status(200).json({message: "Usuario deletado com sucesso!"})
+            return sendSuccess(res, {
+                statusCode: 200,
+                message: 'Usuário deletado com sucesso!',
+                data: { id }
+            });
 
         } catch (error) {
-            return res.status(500).json({ message: "Erro:", error })
+            return sendError(res, {
+                statusCode: 500,
+                message: 'Falha ao deletar o usuário.',
+                error: error
+            });
         }
     }
-}
+};
