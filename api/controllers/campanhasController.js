@@ -1,68 +1,108 @@
-const Campanha = require("../models/campanhasModel")
+const Campanha = require("../models/campanhasModel");
+const { sendSuccess, sendError } = require("../utils/responseHelper");
 
 module.exports = {
 
+    // GET /campanhas
     async listarCampanhas(req, res) {
         try {
             const campanhas = await Campanha.findAll();
-            return res.send(campanhas);
+
+            return sendSuccess(res, {
+                statusCode: 200,
+                message: 'Campanhas carregadas com sucesso!',
+                data: campanhas
+            });
 
         } catch (error) {
-            return res.status(500).json({ message: "erro:", error })
+            return sendError(res, {
+                statusCode: 500,
+                message: 'Falha ao buscar a lista de campanhas.',
+                error: error
+            });
         }
     },
 
-
+    // POST /campanhas
     async criarCampanha(req, res) {
         try {
             const novaCampanha = await Campanha.create(req.body);
-            return res.status(201).json({ message: "Campanha Criada com Sucesso!", novaCampanha });
+
+            return sendSuccess(res, {
+                statusCode: 201,
+                message: 'Campanha criada com sucesso!',
+                data: novaCampanha
+            });
 
         } catch (error) {
-            return res.status(500).json({ message: "Erro:", error })
+            return sendError(res, {
+                statusCode: 500,
+                message: 'Falha ao criar a campanha.',
+                error: error
+            });
         }
     },
 
+    // PUT /campanhas/:id
     async editarCampanha(req, res) {
         try {
-            const { id } = req.params
-            const novosDados = req.body
+            const { id } = req.params;
+            const novosDados = req.body;
 
-            const campanha = await Campanha.findByPk(id)
-            if(!campanha){
-                return res.status(404).json({message: "Erro: Campanha não Encontrada"})
+            const campanha = await Campanha.findByPk(id);
+            if (!campanha) {
+                return sendError(res, {
+                    statusCode: 404,
+                    message: 'Campanha não encontrada para edição.'
+                });
             }
 
-            const campanhaEditada = await campanha.update(novosDados)
+            const campanhaEditada = await campanha.update(novosDados);
 
+            return sendSuccess(res, {
+                statusCode: 200,
+                message: 'Campanha editada com sucesso!',
+                data: campanhaEditada
+            });
 
-            return res.status(200).json({ message: "Campanha Editada com Sucesso!", campanhaEditada })
         } catch (error) {
-            return res.status(500).json({ message: "Erro: ", error });
+            return sendError(res, {
+                statusCode: 500,
+                message: 'Falha ao editar a campanha.',
+                error: error
+            });
         }
     },
 
-    async deletarCampanha (req, res) {
+    // DELETE /campanhas/:id
+    async deletarCampanha(req, res) {
         try {
-            const { id } = req.params
-            
-            const campanha = await Campanha.findByPk(id)
-            if(!campanha){
-                return res.status(404).json({message: "Campanha não Encontrada"})
+            const { id } = req.params;
+
+            const campanha = await Campanha.findByPk(id);
+            if (!campanha) {
+                return sendError(res, {
+                    statusCode: 404,
+                    message: 'Campanha não encontrada para exclusão.'
+                });
             }
 
-            const campanhaDeletada = await Campanha.destroy({
-                where: {
-                    id: id
-                }
-            })
+            await Campanha.destroy({
+                where: { id: id }
+            });
 
-            return res.status(200).json({message: "Campanha Deletada com Sucesso!", id})
+            return sendSuccess(res, {
+                statusCode: 200,
+                message: 'Campanha deletada com sucesso!',
+                data: { id }
+            });
 
         } catch (error) {
-            return res.status(500).json({message: "Erro:", error})
+            return sendError(res, {
+                statusCode: 500,
+                message: 'Falha ao deletar a campanha.',
+                error: error
+            });
         }
     }
-
-
-}
+};
