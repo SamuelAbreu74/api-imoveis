@@ -48,7 +48,12 @@ const Imovel = sequelize.define('imoveis', {
     url_foto: {
         type: DataTypes.TEXT
     },
-    
+    classificacao: {
+        type: DataTypes.STRING(50),
+        defaultValue: 'comum',
+        allowNull: false
+    }
+
 
 },
     {

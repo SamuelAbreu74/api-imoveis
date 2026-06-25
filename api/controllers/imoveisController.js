@@ -6,18 +6,26 @@ module.exports = {
     // GET /imoveis
     async listarImoveis(req, res) {
         try {
-            const imoveis = await Imovel.findAll();
+            const { classificacao } = req.query;
+
+            const onde = {};
+
+            if (classificacao) {
+                onde.classificacao = classificacao;
+            }
+
+            const imoveis = await Imovel.findAll({ where: onde });
 
             return sendSuccess(res, {
                 statusCode: 200,
-                message: 'Imóveis carregados com sucesso!',
+                message: 'Imoveis encontrados com sucesso!',
                 data: imoveis
             });
 
         } catch (error) {
             return sendError(res, {
                 statusCode: 500,
-                message: 'Falha ao buscar a lista de imóveis',
+                message: 'Falha ao buscar imoveis.',
                 error: error
             });
         }
@@ -94,7 +102,7 @@ module.exports = {
             return sendSuccess(res, {
                 statusCode: 200,
                 message: 'Imóvel deletado com sucesso!',
-                data: { id } 
+                data: { id }
             });
 
         } catch (error) {
@@ -106,3 +114,4 @@ module.exports = {
         }
     }
 };
+
