@@ -23,3 +23,5 @@ export interface ImovelDTO {
     url_foto: string | null;
     classificacao: 'comum' | 'destaque' | 'lancamento';
 }
+
+export type CreateImovelDTO = Omit<ImovelDTO, 'id' | 'created_at'>;

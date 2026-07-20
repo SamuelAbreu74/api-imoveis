@@ -1,4 +1,5 @@
-import { ImovelDTO } from "./imoveis.dto";
+import { Json } from "sequelize/lib/utils";
+import { CreateImovelDTO, ImovelDTO } from "./imoveis.dto";
 import Imovel from "./imoveis.model";
 
 export class ImoveisService {
@@ -30,6 +31,23 @@ export class ImoveisService {
 
         return {
             ...data,
+            created_at: createdAt ? createdAt.toISOString() : null,
+        } as unknown as ImovelDTO;
+    }
+
+    // CRIAR IMOVEL
+    async criarImovel(data: CreateImovelDTO): Promise<ImovelDTO> {
+        const imovelCriado = await Imovel.create(data as any)
+
+        if(!imovelCriado){
+            throw new Error("Erro ao criar um novo imovel");
+        }
+
+        const {createdAt, updatedAt, ...dataFormatted}  = imovelCriado.toJSON();
+
+        
+        return {
+            ...dataFormatted,
             created_at: createdAt ? createdAt.toISOString() : null,
         } as unknown as ImovelDTO;
     }
