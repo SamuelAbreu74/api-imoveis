@@ -3,7 +3,7 @@ import { sequelize } from "../../config/database";
 
 class Imovel extends Model<InferAttributes<Imovel>, InferCreationAttributes<Imovel>> {
     declare id: CreationOptional<number>;
-    declare id_campanha: number;
+    declare id_loteamento: number;
     declare id_tipo_imovel: CreationOptional<number | null>;
     declare tamanho_total_m2: CreationOptional<number | null>;
     declare area_construida_m2: CreationOptional<number | null>;
@@ -28,7 +28,7 @@ Imovel.init(
             autoIncrement: true,
             primaryKey: true,
         },
-        id_campanha: {
+        id_loteamento: {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
