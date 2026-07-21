@@ -1,13 +1,24 @@
 import { Json } from "sequelize/lib/utils";
 import { CreateImovelDTO, ImovelDTO } from "./imoveis.dto";
 import Imovel from "./imoveis.model";
+import { WhereOptions } from 'sequelize';
 
 export class ImoveisService {
 
     // LISTAR IMOVEIS
-    async listarTodos(): Promise<ImovelDTO[]> {
-        const imoveis = await Imovel.findAll()
+    async listarTodos(classificacaoFiltro?: string): Promise<ImovelDTO[]> {
+        
+        const whereClause: WhereOptions = {};
 
+        if (classificacaoFiltro) {
+            whereClause.classificacao = classificacaoFiltro;
+        }
+
+        const imoveis = await Imovel.findAll({
+            where: whereClause,
+            attributes: { exclude: ['updated_at'] }
+        });
+        
         return imoveis.map((imovel) => {
             const {createdAt, updatedAt, ...data}  = imovel.toJSON();
 

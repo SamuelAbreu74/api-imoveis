@@ -9,12 +9,17 @@ export class ImoveisController {
     // LISTAR IMOVEIS
     async listarImoveis(req: Request, res: Response): Promise<Response> {
         try {
+
+            // Captura o parâmetro da URL (se existir)
+            const { classificacao } = req.query;
+
             // Deve chamar o service
             // O service devolve um array de ImovelDTO[]
-            const listaDeImoveis = await this.imoveisService.listarTodos()
+            const listaDeImoveis = await this.imoveisService.listarTodos(classificacao as string);
 
             return res.status(200).json(listaDeImoveis)
         } catch (error) {
+            console.error("Erro ao listar imóveis:", error);
             return res.status(500).json({ error: 'Erro interno no servidor.' })
         }
     }

@@ -8,7 +8,7 @@ export interface ComodosDTO {
 
 export interface ImovelDTO {
     id: number;
-    id_campanha: number;
+    id_loteamento: number;
     id_tipo_imovel: number | null;
     tamanho_total_m2: number | null;
     area_construida_m2: number| null;
