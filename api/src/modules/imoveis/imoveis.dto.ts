@@ -5,6 +5,13 @@ export interface ComodosDTO {
     vagas_garage: number;
 }
 
+export interface ImovelFotoDTO {
+    id: number;
+    url_foto: string;
+    destaque: boolean;
+    ordem: number;
+}
+
 
 export interface ImovelDTO {
     id: number;
@@ -22,6 +29,7 @@ export interface ImovelDTO {
     endereco: string | null;
     url_foto: string | null;
     classificacao: 'comum' | 'destaque' | 'lancamento';
+    fotos?: ImovelFotoDTO[];
 }
 
 export type CreateImovelDTO = Omit<ImovelDTO, 'id' | 'created_at'>;
