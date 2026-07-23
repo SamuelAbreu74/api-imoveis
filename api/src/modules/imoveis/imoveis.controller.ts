@@ -11,11 +11,11 @@ export class ImoveisController {
         try {
 
             // Captura o parâmetro da URL (se existir)
-            const { classificacao } = req.query;
+            const { classificacao, tipo, localizacao, valorMinimo, valorMaximo } = req.query;
 
             // Deve chamar o service
             // O service devolve um array de ImovelDTO[]
-            const listaDeImoveis = await this.imoveisService.listarTodos(classificacao as string);
+            const listaDeImoveis = await this.imoveisService.listarTodos(classificacao as string, tipo as string, localizacao as string, valorMinimo as string, valorMaximo as string);
 
             return res.status(200).json(listaDeImoveis)
         } catch (error) {
