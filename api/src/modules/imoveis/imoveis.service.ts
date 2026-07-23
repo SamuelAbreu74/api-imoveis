@@ -1,18 +1,43 @@
 import { CreateImovelDTO, ImovelDTO } from "./imoveis.dto";
 import Imovel from "./imoveis.model";
 import { ImovelFoto } from "./imoveis-fotos.model";
-import { WhereOptions } from 'sequelize';
+import { Op, WhereOptions } from 'sequelize';
 
 
 export class ImoveisService {
 
     // LISTAR IMOVEIS
-    async listarTodos(classificacaoFiltro?: string): Promise<ImovelDTO[]> {
+    async listarTodos(
+        classificacaoFiltro?: string,
+        tipoFiltro?: string,
+        localizacaoFiltro?: string,
+        valorMinimo?: string,
+        valorMaximo?: string
+    ): Promise<ImovelDTO[]> {
 
         const whereClause: WhereOptions = {};
 
         if (classificacaoFiltro) {
             whereClause.classificacao = classificacaoFiltro;
+        }
+
+        if (tipoFiltro) {
+            whereClause.tipo = tipoFiltro;
+        }
+
+        if (localizacaoFiltro) {
+            whereClause.endereco = { [Op.like]: `%${localizacaoFiltro}%` };
+        }
+
+        if (valorMinimo || valorMaximo) {
+            whereClause.valor_venda = {};
+
+            if (valorMinimo) {
+                whereClause.valor_venda[Op.gte] = Number(valorMinimo); // Maior ou igual
+            }
+            if (valorMaximo) {
+                whereClause.valor_venda[Op.lte] = Number(valorMaximo); // Menor ou igual
+            }
         }
 
         const imoveis = await Imovel.findAll({
@@ -25,7 +50,6 @@ export class ImoveisService {
 
             return {
                 ...data,
-                // Converte o createdAt para string
                 created_at: createdAt ? createdAt.toISOString() : null,
             } as unknown as ImovelDTO;
         });
@@ -41,11 +65,11 @@ export class ImoveisService {
                     attributes: ['id', 'url_foto', 'destaque', 'ordem']
                 }
             ],
-            order:[
-                [{model: ImovelFoto, as: 'fotos'}, 'destaque', 'DESC'],
-                [{model: ImovelFoto, as: 'fotos'}, 'ordem', 'ASC'],
+            order: [
+                [{ model: ImovelFoto, as: 'fotos' }, 'destaque', 'DESC'],
+                [{ model: ImovelFoto, as: 'fotos' }, 'ordem', 'ASC'],
             ],
-            attributes:{exclude: ['updated_at']}
+            attributes: { exclude: ['updated_at'] }
         })
 
         if (!imovel) {
