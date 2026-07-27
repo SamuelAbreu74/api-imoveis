@@ -1,18 +1,20 @@
 import { CreateImovelDTO, ImovelDTO } from "./imoveis.dto";
 import Imovel from "./imoveis.model";
 import { ImovelFoto } from "./imoveis-fotos.model";
-import { Op, WhereOptions } from 'sequelize';
+import { Op, WhereOptions, Sequelize } from 'sequelize';
 
 
 export class ImoveisService {
 
     // LISTAR IMOVEIS
+
     async listarTodos(
         classificacaoFiltro?: string,
         tipoFiltro?: string,
         localizacaoFiltro?: string,
         valorMinimo?: string,
-        valorMaximo?: string
+        valorMaximo?: string,
+        id_loteamento?: string,
     ): Promise<ImovelDTO[]> {
 
         const whereClause: WhereOptions = {};
@@ -21,22 +23,31 @@ export class ImoveisService {
             whereClause.classificacao = classificacaoFiltro;
         }
 
+        if (id_loteamento) {
+            whereClause.id_loteamento = id_loteamento;
+        }
+
         if (tipoFiltro) {
-            whereClause.tipo = tipoFiltro;
+            whereClause.id_tipo_imovel = tipoFiltro;
         }
 
         if (localizacaoFiltro) {
-            whereClause.endereco = { [Op.like]: `%${localizacaoFiltro}%` };
+            whereClause[Op.and as any] = Sequelize.where(
+                Sequelize.fn('unaccent', Sequelize.col('endereco')),
+                {
+                    [Op.iLike]: Sequelize.fn('unaccent', `%${localizacaoFiltro}%`)
+                }
+            );
         }
 
         if (valorMinimo || valorMaximo) {
             whereClause.valor_venda = {};
 
             if (valorMinimo) {
-                whereClause.valor_venda[Op.gte] = Number(valorMinimo); // Maior ou igual
+                whereClause.valor_venda[Op.gte] = Number(valorMinimo);
             }
             if (valorMaximo) {
-                whereClause.valor_venda[Op.lte] = Number(valorMaximo); // Menor ou igual
+                whereClause.valor_venda[Op.lte] = Number(valorMaximo);
             }
         }
 
@@ -54,6 +65,7 @@ export class ImoveisService {
             } as unknown as ImovelDTO;
         });
     }
+
 
     // BUSCA POR ID
     async buscarPorId(id: number): Promise<ImovelDTO | null> {

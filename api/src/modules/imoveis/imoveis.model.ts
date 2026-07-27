@@ -1,6 +1,7 @@
 import { DataTypes, Model, InferAttributes, InferCreationAttributes, CreationOptional } from "sequelize";
 import { sequelize } from "../../config/database";
 import { ImovelFoto } from './imoveis-fotos.model';
+import Loteamento from "../loteamentos/loteamentos.model";
 
 class Imovel extends Model<InferAttributes<Imovel>, InferCreationAttributes<Imovel>> {
     declare id: CreationOptional<number>;
@@ -98,14 +99,8 @@ Imovel.init(
     }
 );
 
-Imovel.hasMany(ImovelFoto, {
-    foreignKey: 'id_imovel', 
-    as: 'fotos'
-});
 
-ImovelFoto.belongsTo(Imovel, {
-    foreignKey: 'id_imovel',
-    as: 'imovel'
-})
+
+
 
 export default Imovel;
